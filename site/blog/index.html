@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Blog</title>
+
+  <!-- Bootstrap, Google Font, Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg: #f9f6f1;
+      --text: #2d2b2b;
+      --muted: #6b6b6b;
+      --border: rgba(45, 43, 43, 0.12);
+      --accent: #b76e79;
+      --glass: rgba(255, 255, 255, 0.35);
+      --shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+      --radius: 18px;
+    }
+
+    /* =========================
+      Base
+    ========================= */
+    body {
+      background-color: var(--bg);
+      font-family: 'Cormorant Garamond', serif;
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.75;
+      scroll-behavior: smooth;
+      padding-top: 110px;
+    }
+
+    p,
+    li {
+      color: var(--muted);
+    }
+
+    a {
+      color: var(--text);
+      text-decoration: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    a:hover {
+      opacity: 0.7;
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+      Navbar
+    ========================= */
+    .navbar {
+      border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+      background-color: rgba(249, 246, 241, 0.92);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      min-height: 84px;
+    }
+
+    .navbar-toggler {
+      border: 1px solid rgba(45, 43, 43, 0.18);
+      border-radius: 14px;
+      padding: 0.45rem 0.6rem;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.04);
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: 0 12px 26px rgba(183, 110, 121, 0.10);
+      border-color: rgba(183, 110, 121, 0.45);
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      font-size: 24px;
+      letter-spacing: 2px;
+    }
+
+    .nav-link {
+      font-size: 18px;
+      padding-right: 20px;
+    }
+
+    .nav-link.active {
+      font-weight: 600;
+      color: var(--accent) !important;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .home-icon {
+      font-size: 1.1rem;
+      opacity: 0.75;
+    }
+
+    .navbar-brand:hover .home-icon {
+      opacity: 1;
+    }
+
+    /* =========================
+      Hero
+    ========================= */
+    .page-hero {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 2.25rem 1.5rem;
+      text-align: center;
+      position: relative;
+    }
+
+    .page-hero .lead {
+      color: #4f4f4f;
+      max-width: 62ch;
+      margin: 0.25rem auto 0;
+    }
+
+    /* =========================
+      Filter Pills
+    ========================= */
+    .filter-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 1.25rem;
+      width: 100%;
+    }
+
+    .filter-pills {
+      display: inline-flex;
+      gap: 0.35rem;
+      padding: 0.35rem;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.35);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      flex-wrap: wrap;
+    }
+
+    .pill {
+      border: 1px solid transparent;
+      background: transparent;
+      border-radius: 999px;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.98rem;
+      color: var(--text);
+      transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
+    }
+
+    .pill:hover {
+      transform: translateY(-1px);
+      background: rgba(183, 110, 121, 0.08);
+    }
+
+    .pill.active {
+      background: rgba(183, 110, 121, 0.14);
+      border-color: rgba(183, 110, 121, 0.35);
+      color: var(--text);
+    }
+
+    /* =========================
+      Search (blog list)
+    ========================= */
+    .search-row {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .search-box {
+      width: min(720px, 100%);
+      position: relative;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 1px solid rgba(45, 43, 43, 0.18);
+      background: rgba(255, 255, 255, 0.22);
+      border-radius: 999px;
+      padding: 0.75rem 1.05rem 0.75rem 2.6rem;
+      outline: none;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.03);
+    }
+
+    .search-input:focus {
+      border-color: rgba(183, 110, 121, 0.55);
+      box-shadow: 0 12px 26px rgba(183, 110, 121, 0.08);
+    }
+
+    .search-ico {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      opacity: 0.65;
+    }
+
+    .search-clear {
+      position: absolute;
+      right: 0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      border: none;
+      background: transparent;
+      padding: 0.25rem;
+      opacity: 0.6;
+      display: none;
+    }
+
+    .search-clear:hover {
+      opacity: 1;
+    }
+
+    .search-hint {
+      text-align: center;
+      font-size: 0.95rem;
+      color: #666;
+      margin-top: 0.6rem;
+      display: none;
+    }
+
+    .search-meta {
+      font-size: 0.95rem;
+      color: #555;
+      margin: 0.25rem 0 0.2rem;
+      display: none;
+      line-height: 1.2;
+      text-align: center;
+    }
+
+    .search-nav {
+      display: none;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 0.25rem;
+    }
+
+    .nav-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1px solid rgba(45, 43, 43, 0.16);
+      background: rgba(255, 255, 255, 0.50);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+      display: grid;
+      place-items: center;
+      transition: transform 0.15s ease, opacity 0.15s ease;
+    }
+
+    .nav-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    .nav-btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+    }
+
+    /* =========================
+      Cards
+    ========================= */
+    .post-grid {
+      margin-top: 2rem;
+    }
+
+    .post-card {
+      background: rgba(255, 255, 255, 0.28);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.25rem 1.25rem 1.1rem;
+      height: 100%;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+    }
+
+    .post-meta {
+      font-size: 0.95rem;
+      color: #666;
+      margin-bottom: 0.55rem;
+    }
+
+    .post-title {
+      font-weight: 600;
+      font-size: 1.55rem;
+      margin-bottom: 0.5rem;
+      line-height: 1.15;
+      color: var(--text);
+    }
+
+    .post-excerpt {
+      margin: 0;
+      color: var(--muted);
+      max-width: 58ch;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      padding: 0.22rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: rgba(255, 255, 255, 0.35);
+      margin-bottom: 0.85rem;
+      width: fit-content;
+    }
+
+    .tag.aromaterapi {
+      border-color: rgba(183, 110, 121, 0.35);
+      background: rgba(183, 110, 121, 0.10);
+    }
+
+    .tag.vitamin {
+      border-color: rgba(178, 140, 84, 0.35);
+      background: rgba(178, 140, 84, 0.12);
+    }
+
+    .tag.dermo {
+      border-color: rgba(143, 106, 164, 0.35);
+      background: rgba(143, 106, 164, 0.12);
+    }
+
+    /* Highlight (blog) */
+    mark.search-hit {
+      background: rgba(183, 110, 121, 0.22);
+      color: var(--text);
+      padding: 0 0.2em;
+      border-radius: 6px;
+    }
+
+    mark.search-hit.current-hit {
+      background: rgba(183, 110, 121, 0.35);
+      outline: 1px solid rgba(183, 110, 121, 0.55);
+    }
+
+    /* =========================
+      Footer
+    ========================= */
+    .footer-card {
+      background: var(--glass);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 3rem 1.5rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+
+    /* =========================
+      Empty State
+    ========================= */
+    .empty-state {
+      display: none;
+      text-align: center;
+      color: #666;
+      padding: 2rem 1rem;
+      border: 1px dashed rgba(0, 0, 0, 0.15);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.18);
+      margin-top: 1.5rem;
+    }
+
+    /* =========================
+      Desktop Tweaks
+    ========================= */
+    @media (min-width: 992px) {
+      .page-hero {
+        padding: 2.75rem 2.25rem;
+      }
+
+      .footer-card {
+        padding: 3.5rem 2.5rem;
+      }
+    }
+
+    /* =========================
+      Small Screens (mobile + small tablets)
+      -> pill'leri tek satır + yatay kaydır
+    ========================= */
+    @media (max-width: 991.98px) {
+      .filter-wrap {
+        justify-content: flex-start;
+        margin-top: 1rem;
+        padding: 0 0.25rem;
+        overflow: hidden;
+      }
+
+      .filter-pills {
+        width: 100%;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        gap: 0.45rem;
+        padding: 0.35rem;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.28);
+        scroll-snap-type: x mandatory;
+      }
+
+      .filter-pills::-webkit-scrollbar {
+        display: none;
+      }
+
+      .pill {
+        flex: 0 0 auto;
+        white-space: nowrap;
+        scroll-snap-align: start;
+      }
+    }
+
+    /* =========================
+      Mobile (0 - 575.98px)
+    ========================= */
+    @media (max-width: 575.98px) {
+      .page-hero {
+        padding: 1.6rem 1rem;
+      }
+
+      .pill {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.95rem;
+      }
+
+      .search-row {
+        margin-top: 0.85rem;
+      }
+
+      .search-input {
+        padding: 0.75rem 0.95rem 0.75rem 2.45rem;
+      }
+
+      .search-ico {
+        left: 0.9rem;
+      }
+    }
+
+    /* Yukarı çık (tüm cihazlar) */
+    .scroll-top {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 1px solid rgba(45, 43, 43, .22);
+      background: rgba(255, 255, 255, .75);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 55px rgba(0, 0, 0, .08);
+      cursor: pointer;
+
+      display: grid;
+      place-items: center;
+
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity .18s ease, transform .18s ease;
+      z-index: 999;
+    }
+
+    .scroll-top.show {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .hero-author {
+      position: absolute;
+      left: 1.5rem;
+      bottom: 1.2rem;
+      font-size: 0.95rem;
+      color: #6b6b6b;
+      opacity: 0.8;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm">
+    <div class="container d-flex align-items-center">
+
+      <!-- Logo + Home Icon (aynı blok) -->
+      <a class="navbar-brand mb-0 d-flex align-items-center gap-2" href="../index.html" aria-label="Anasayfa">
+        <i class="bi bi-house home-icon"></i>
+        <span>SantheraLab</span>
+      </a>
+
+      <!-- Mobile toggle -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Menü">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <!-- Menu + Button -->
+      <div class="collapse navbar-collapse align-items-center" id="navbarNav">
+
+        <!-- ORTA MENÜ (JS basıyor) -->
+        <ul class="navbar-nav mx-auto align-items-center" id="dynamicNav"></ul>
+
+        <!-- SAĞ BUTON -->
+        <div class="d-flex align-items-center">
+          <a href="https://wa.me/9053XXXXXXXX" target="_blank" class="btn btn-outline-dark rounded-pill px-3 py-1">
+            <i class="bi bi-chat-dots me-1"></i>
+            Eczacımıza Danışın
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="container my-5">
+    <div class="page-hero">
+      <h1 class="display-5 fw-semibold mb-1">Blog</h1>
+      <p class="lead mb-0">Doğal yaşam, sağlıklı alışkanlıklar ve güzellik üzerine güncel yazılar.</p>
+
+      <div class="filter-wrap">
+        <div class="filter-pills" id="filters">
+          <button class="pill active" data-cat="all">Tümü</button>
+          <button class="pill" data-cat="aromaterapi">Aromaterapi</button>
+          <button class="pill" data-cat="vitamin-mineral">Vitamin-Mineral</button>
+          <button class="pill" data-cat="dermokozmetik">Dermokozmetik</button>
+        </div>
+      </div>
+
+      <!-- SEARCH -->
+      <div class="search-row">
+        <div class="search-box">
+          <i class="bi bi-search search-ico"></i>
+          <input id="searchInput" class="search-input" type="search" placeholder="Ara" autocomplete="off" />
+          <button id="clearSearch" class="search-clear" type="button" aria-label="Temizle">
+            <i class="bi bi-x-circle"></i>
+          </button>
+        </div>
+      </div>
+
+      <div id="searchHint" class="search-hint"></div>
+      <div class="hero-author">
+        Ecz. Şerife Ademoğulları
+      </div>
+
+
+      <!-- Highlight meta + nav -->
+      <div id="searchMeta" class="search-meta"></div>
+      <div id="searchNav" class="search-nav">
+        <button id="prevHit" class="nav-btn" type="button" aria-label="Önceki eşleşme">
+          <i class="bi bi-chevron-up"></i>
+        </button>
+        <button id="nextHit" class="nav-btn" type="button" aria-label="Sonraki eşleşme">
+          <i class="bi bi-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Cards -->
+    <div class="post-grid">
+      <div class="row g-4" id="postList">
+
+        <!-- Aromaterapi -->
+        <div class="col-md-6 post" data-cat="aromaterapi">
+          <a href="posts/aromaterapi/aromaterapiye-yolculuk/index.html">
+            <div class="post-card">
+              <div class="tag aromaterapi"><i class="bi bi-droplet"></i> Aromaterapi</div>
+              <div class="post-title">Aromaterapiye Yolculuk</div>
+              <div class="post-meta">10 Şub 2026</div>
+              <p class="post-excerpt">Esansiyel yağlar, kullanım yöntemleri ve güvenlik notları.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Vitamin-Mineral -->
+        <div class="col-md-6 post" data-cat="vitamin-mineral">
+          <a href="posts/vitamin-mineral/vitamin-mineral-rehberi/index.html">
+            <div class="post-card">
+              <div class="tag vitamin"><i class="bi bi-capsule"></i> Vitamin-Mineral</div>
+              <div class="post-title">Vitamin &amp; Mineral Rehberi</div>
+              <div class="post-meta">8 Şub 2026</div>
+              <p class="post-excerpt">Günlük rutin, temel vitaminler ve doğru kullanım.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Aromaterapi 2 -->
+        <div class="col-md-6 post" data-cat="aromaterapi">
+          <a href="posts/aromaterapi/lavanta-yaginin-faydalari/index.html">
+            <div class="post-card">
+              <div class="tag aromaterapi"><i class="bi bi-droplet"></i> Aromaterapi</div>
+              <div class="post-title">Lavanta Yağının Faydaları</div>
+              <div class="post-meta">4 Şub 2026</div>
+              <p class="post-excerpt">Lavanta yağı, rahatlatıcı ve yatıştırıcı özellikleriyle öne çıkar.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Dermokozmetik -->
+        <div class="col-md-6 post" data-cat="dermokozmetik">
+          <a href="posts/dermokozmetik/cilt-bakim-rutini/index.html">
+            <div class="post-card">
+              <div class="tag dermo"><i class="bi bi-droplet-half"></i> Dermokozmetik</div>
+              <div class="post-title">Cilt Bakım Rutini</div>
+              <div class="post-meta">6 Şub 2026</div>
+              <p class="post-excerpt">Serum, nemlendirici, SPF ve aktif içerikler.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Aromaterapi 3 -->
+        <div class="col-md-6 post" data-cat="aromaterapi">
+          <a href="posts/aromaterapi/ucucu-yaglarla-stresten-kurtulma/index.html">
+            <div class="post-card">
+              <div class="tag aromaterapi"><i class="bi bi-wind"></i> Aromaterapi</div>
+              <div class="post-title">Uçucu Yağlarla Stresten Kurtulma</div>
+              <div class="post-meta">2 Şub 2026</div>
+              <p class="post-excerpt">Doğal uçucu yağlarla zihinsel rahatlama için ipuçları.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Vitamin-Mineral 2 -->
+        <div class="col-md-6 post" data-cat="vitamin-mineral">
+          <a href="posts/vitamin-mineral/akne-tedavisi-dogru-adimlar/index.html">
+            <div class="post-card">
+              <div class="tag vitamin"><i class="bi bi-capsule"></i> Vitamin-Mineral</div>
+              <div class="post-title">Akne Tedavisi: Doğru Adımlar</div>
+              <div class="post-meta">2 Şub 2026</div>
+              <p class="post-excerpt">Dengeli rutin, destekleyici içerikler ve dikkat edilmesi gerekenler.</p>
+            </div>
+          </a>
+        </div>
+
+        <!-- Dermokozmetik 2 -->
+        <div class="col-md-6 post" data-cat="dermokozmetik">
+          <a href="posts/dermokozmetik/demir-eksikligi-nedenleri/index.html">
+            <div class="post-card">
+              <div class="tag dermo"><i class="bi bi-shield-check"></i> Dermokozmetik</div>
+              <div class="post-title">Demir Eksikliği: Nedenleri &amp; Çözüm Önerileri</div>
+              <div class="post-meta">31 Ocak 2026</div>
+              <p class="post-excerpt">Belirtiler, beslenme önerileri ve destekleyici yaklaşımlar.</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Empty -->
+      <div id="emptyState" class="empty-state">
+        Bu kategoride içerik yok.
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="container mb-5">
+    <div class="footer-card">
+
+      <div class="row justify-content-center align-items-start">
+
+        <!-- Sol -->
+        <div class="col-md-4 mb-4 pt-1">
+          <h5 class="mb-2">İletişim</h5>
+          <a href="https://wa.me/9053XXXXXXXX" target="_blank">
+            <i class="bi bi-whatsapp me-1"></i> WhatsApp
+          </a>
+          <div class="mt-1">
+            <a href="mailto:santheralab@gmail.com">
+              <i class="bi bi-envelope me-1"></i> santheralab@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <!-- ORTA BUTON -->
+        <div class="col-md-4 mb-4 d-flex flex-column align-items-center pt-4">
+          <a href="https://wa.me/9053XXXXXXXX" target="_blank" class="btn btn-outline-dark px-4 py-2 rounded-pill mb-2">
+            <i class="bi bi-chat-dots me-2"></i>
+            Eczacımıza Danışın
+          </a>
+
+          <div class="small text-muted opacity-75">
+            <i class="bi bi-geo-alt me-1"></i>
+            Lefkoşa · Kuzey Kıbrıs
+          </div>
+        </div>
+
+        <!-- Sağ -->
+        <div class="col-md-4 mb-4 pt-1">
+          <h5 class="mb-2">Sosyal Medya</h5>
+          <a href="https://www.instagram.com/eczserife" target="_blank">
+            <i class="bi bi-instagram me-1"></i> Instagram
+          </a>
+        </div>
+
+      </div>
+
+      <p class="mt-4 mb-0">
+        &copy; 2026 SantheraLab · Tüm hakları saklıdır.
+      </p>
+
+    </div>
+  </footer>
+
+  <!-- Yukarı çık -->
+  <button id="scrollTopBtn" class="scroll-top" aria-label="Yukarı çık">↑</button>
+
+  <!-- Bootstrap JS (tek kez) -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    /* =========================================================
+      NAVBAR (URL'e göre)
+    ========================================================= */
+    function getParam(name) {
+      return new URLSearchParams(window.location.search).get(name);
+    }
+
+    function renderNav() {
+      const cat = (getParam('cat') || '').toLowerCase();
+      const el = document.getElementById('dynamicNav');
+      if (!el) return;
+
+      // default (aromaterapi menüsü)
+      let items = [
+        { text: 'Blog', href: './index.html', key: 'blog' },
+        { text: 'Serumlar', href: '../aromaterapi/serumlar/index.html', key: 'serumlar' },
+        { text: 'Sabit Yağlar', href: '../aromaterapi/sabit-yaglar/index.html', key: 'sabit-yaglar' },
+        { text: 'Uçucu Yağlar', href: '../aromaterapi/ucucu-yaglar/index.html', key: 'ucucu-yaglar' },
+      ];
+      let activeKey = 'blog';
+
+      // Vitamin-mineral görünümü
+      if (cat === 'vitamin-mineral') {
+        items = [
+          { text: 'Blog', href: './index.html?cat=vitamin-mineral', key: 'blog' },
+          { text: 'Vitaminler', href: '../vitamin-mineral/vitamin/index.html', key: 'vitaminler' },
+          { text: 'Mineraller', href: '../vitamin-mineral/mineral/index.html', key: 'mineraller' },
+        ];
+        activeKey = 'blog';
+      }
+
+      // Dermokozmetik görünümü
+      if (cat === 'dermokozmetik') {
+        items = [
+          { text: 'Blog', href: './index.html?cat=dermokozmetik', key: 'blog' },
+          { text: 'Dermokozmetik', href: '../dermokozmetik/index.html', key: 'dermokozmetik' },
+        ];
+        activeKey = 'blog';
+      }
+
+      // UL içine LI bas (Bootstrap uyumlu)
+      el.innerHTML = items.map(i => `
+        <li class="nav-item">
+          <a class="nav-link ${i.key === activeKey ? 'active' : ''}" href="${i.href}">${i.text}</a>
+        </li>
+      `).join('');
+    }
+
+    /* =========================================================
+      FILTER + SEARCH (liste filtreleme)
+    ========================================================= */
+    const filters = document.getElementById('filters');
+    const posts = Array.from(document.querySelectorAll('.post'));
+    const emptyState = document.getElementById('emptyState');
+
+    const searchInput = document.getElementById('searchInput');
+    const clearSearch = document.getElementById('clearSearch');
+    const searchHint = document.getElementById('searchHint');
+
+    let activeCat = 'all';
+
+    function setActiveByCat(cat) {
+      const btn =
+        filters.querySelector(`.pill[data-cat="${cat}"]`) ||
+        filters.querySelector(`.pill[data-cat="all"]`);
+
+      filters.querySelectorAll('.pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      activeCat = btn.dataset.cat;
+    }
+
+    function normalize(str) {
+      return (str || '')
+        .toLowerCase()
+        .trim()
+        .replaceAll('ı', 'i')
+        .replaceAll('İ', 'i')
+        .replaceAll('ğ', 'g')
+        .replaceAll('Ğ', 'g')
+        .replaceAll('ü', 'u')
+        .replaceAll('Ü', 'u')
+        .replaceAll('ş', 's')
+        .replaceAll('Ş', 's')
+        .replaceAll('ö', 'o')
+        .replaceAll('Ö', 'o')
+        .replaceAll('ç', 'c')
+        .replaceAll('Ç', 'c');
+    }
+
+    function getPostText(postEl) {
+      const title = postEl.querySelector('.post-title')?.textContent || '';
+      const excerpt = postEl.querySelector('.post-excerpt')?.textContent || '';
+      const cat = postEl.dataset.cat || '';
+      return normalize([title, excerpt, cat].join(' '));
+    }
+
+    function applyFilterAndSearch() {
+      const q = normalize(searchInput.value);
+      clearSearch.style.display = q ? 'block' : 'none';
+
+      let visible = 0;
+
+      posts.forEach(p => {
+        const catOk = (activeCat === 'all') || (p.dataset.cat === activeCat);
+        const textOk = !q || getPostText(p).includes(q);
+        const ok = catOk && textOk;
+
+        p.style.display = ok ? '' : 'none';
+        if (ok) visible++;
+      });
+
+      emptyState.style.display = visible ? 'none' : 'block';
+
+      if (q) {
+        searchHint.style.display = 'block';
+        searchHint.textContent = `${visible} sonuç bulundu`;
+      } else {
+        searchHint.style.display = 'none';
+        searchHint.textContent = '';
+      }
+
+      // filtreleme sonrası highlight taraması
+      updateBlogHighlight();
+    }
+
+    /* =========================================================
+      BLOG SEARCH HIGHLIGHT + ileri/geri
+    ========================================================= */
+    const meta = document.getElementById('searchMeta');
+    const navWrap = document.getElementById('searchNav');
+    const prevHitBtn = document.getElementById('prevHit');
+    const nextHitBtn = document.getElementById('nextHit');
+    const postList = document.getElementById('postList');
+
+    let hits = [];
+    let currentHitIndex = -1;
+
+    function escapeRegExp(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    }
+
+    function unwrapMarks(root) {
+      root.querySelectorAll('mark.search-hit').forEach(mark => {
+        const text = document.createTextNode(mark.textContent);
+        mark.replaceWith(text);
+      });
+      root.normalize();
+    }
+
+    function highlightVisibleText(root, query) {
+      if (!query) return 0;
+
+      const re = new RegExp(escapeRegExp(query), 'gi');
+      let count = 0;
+
+      const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+        acceptNode(node) {
+          if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+          const parent = node.parentElement;
+          if (!parent) return NodeFilter.FILTER_REJECT;
+          if (parent.closest('script, style, mark')) return NodeFilter.FILTER_REJECT;
+          // gizli post ise işleme (display:none)
+          const post = parent.closest('.post');
+          if (post && getComputedStyle(post).display === 'none') return NodeFilter.FILTER_REJECT;
+          return re.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+
+      const nodes = [];
+      while (walker.nextNode()) nodes.push(walker.currentNode);
+
+      nodes.forEach(textNode => {
+        const frag = document.createDocumentFragment();
+        const text = textNode.nodeValue;
+        let lastIndex = 0;
+
+        text.replace(re, (match, offset) => {
+          if (offset > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+          const mark = document.createElement('mark');
+          mark.className = 'search-hit';
+          mark.textContent = match;
+          frag.appendChild(mark);
+          lastIndex = offset + match.length;
+          count++;
+          return match;
+        });
+
+        if (lastIndex < text.length) frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+        textNode.replaceWith(frag);
+      });
+
+      return count;
+    }
+
+    function collectHits() {
+      hits = Array.from(postList.querySelectorAll('mark.search-hit')).filter(m => {
+        const post = m.closest('.post');
+        return !post || getComputedStyle(post).display !== 'none';
+      });
+      currentHitIndex = hits.length ? 0 : -1;
+    }
+
+    function setCurrentHit(index) {
+      if (!hits.length) return;
+
+      hits.forEach(m => m.classList.remove('current-hit'));
+      currentHitIndex = (index + hits.length) % hits.length;
+
+      const el = hits[currentHitIndex];
+      el.classList.add('current-hit');
+
+      const y = el.getBoundingClientRect().top + window.scrollY - 140;
+      window.scrollTo({ top: y, behavior: 'smooth' });
+
+      prevHitBtn.disabled = hits.length <= 1;
+      nextHitBtn.disabled = hits.length <= 1;
+    }
+
+    function updateNavUI(query, hitCount) {
+      const has = query && hitCount;
+
+      navWrap.style.display = has ? 'flex' : 'none';
+      meta.style.display = query ? 'block' : 'none';
+
+      if (query) {
+        meta.textContent = `${hitCount} eşleşme`;
+      } else {
+        meta.textContent = '';
+      }
+
+      prevHitBtn.disabled = hitCount <= 1;
+      nextHitBtn.disabled = hitCount <= 1;
+    }
+
+    function updateBlogHighlight() {
+      const qRaw = searchInput.value.trim();
+      const q = qRaw; // highlight gerçek karakterlerle olsun
+
+      // önce temizle
+      unwrapMarks(postList);
+
+      if (!q) {
+        hits = [];
+        currentHitIndex = -1;
+        updateNavUI('', 0);
+        return;
+      }
+
+      const hitCount = highlightVisibleText(postList, q);
+      collectHits();
+      updateNavUI(q, hitCount);
+
+      if (hits.length) setCurrentHit(0);
+    }
+
+    // enter ile ileri (shift+enter geri)
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && hits.length) {
+        e.preventDefault();
+        setCurrentHit(currentHitIndex + (e.shiftKey ? -1 : 1));
+      }
+    });
+
+    prevHitBtn.addEventListener('click', () => {
+      if (hits.length) setCurrentHit(currentHitIndex - 1);
+    });
+
+    nextHitBtn.addEventListener('click', () => {
+      if (hits.length) setCurrentHit(currentHitIndex + 1);
+    });
+
+    /* =========================================================
+      SCROLL TOP
+    ========================================================= */
+    function setupScrollTop() {
+      const btn = document.getElementById('scrollTopBtn');
+      if (!btn) return;
+
+      const toggle = () => {
+        btn.classList.toggle('show', window.scrollY > 500);
+      };
+
+      window.addEventListener('scroll', toggle, { passive: true });
+      toggle();
+
+      btn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    }
+
+    /* =========================================================
+      EVENTS + INIT
+    ========================================================= */
+    // Kategori tıklama
+    filters.addEventListener('click', (e) => {
+      const btn = e.target.closest('.pill');
+      if (!btn) return;
+
+      setActiveByCat(btn.dataset.cat);
+      applyFilterAndSearch();
+    });
+
+    // Arama input
+    searchInput.addEventListener('input', applyFilterAndSearch);
+
+    // Temizle
+    clearSearch.addEventListener('click', () => {
+      searchInput.value = '';
+      applyFilterAndSearch();
+      searchInput.focus();
+    });
+
+    // === URL param ile başlangıç kategorisi ===
+    // /blog/index.html?cat=aromaterapi | vitamin-mineral | dermokozmetik | all
+    document.addEventListener('DOMContentLoaded', () => {
+      renderNav();
+
+      const params = new URLSearchParams(window.location.search);
+      const catFromUrl = params.get('cat');
+      setActiveByCat(catFromUrl || 'all');
+
+      applyFilterAndSearch();
+      setupScrollTop();
+    });
+  </script>
+
+</body>
+
+</html>

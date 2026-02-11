@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Vitaminler</title>
+
+    <!-- Bootstrap, Google Font, Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #f9f6f1;
+            --text: #2d2b2b;
+            --muted: #6b6b6b;
+            --border: rgba(45, 43, 43, 0.12);
+            --accent: #b76e79;
+            --glass: rgba(255, 255, 255, 0.35);
+            --shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+            --radius: 18px;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text);
+            font-size: 18px;
+            line-height: 1.75;
+            scroll-behavior: smooth;
+            padding-top: 110px;
+        }
+
+        p,
+        li {
+            color: var(--muted);
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+        }
+
+        a:hover {
+            opacity: 0.7;
+            transform: translateY(-1px);
+        }
+
+        /* Navbar */
+        .navbar {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            background-color: rgba(249, 246, 241, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            min-height: 84px;
+        }
+
+        .navbar-toggler {
+            border: 1px solid rgba(45, 43, 43, 0.18);
+            border-radius: 14px;
+            padding: 0.45rem 0.6rem;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.04);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 12px 26px rgba(183, 110, 121, 0.10);
+            border-color: rgba(183, 110, 121, 0.45);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+
+        .nav-link {
+            font-size: 18px;
+            padding-right: 20px;
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+            color: var(--accent) !important;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .home-icon {
+            font-size: 1.1rem;
+            opacity: 0.75;
+        }
+
+        .navbar-brand:hover .home-icon {
+            opacity: 1;
+        }
+
+        /* Hero */
+        .page-hero {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2.25rem 1.5rem;
+            position: relative;
+        }
+
+        @media (min-width: 992px) {
+            .page-hero {
+                padding: 2.75rem 2.25rem;
+            }
+        }
+
+        .page-hero .lead {
+            color: #4f4f4f;
+            max-width: 62ch;
+            margin: 0.25rem auto 0;
+        }
+
+        /* Sol menü sticky */
+        .sticky-sidebar {
+            position: sticky;
+            top: 110px;
+        }
+
+        @media (max-width: 767.98px) {
+            .sticky-sidebar {
+                position: static;
+                top: auto;
+            }
+        }
+
+        .toc-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .toc-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .toc-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0.25rem 0 0.75rem;
+        }
+
+        /* Arama */
+        .search-wrap {
+            position: relative;
+            margin-bottom: 0.85rem;
+        }
+
+        .search-input {
+            width: 100%;
+            border: 1px solid rgba(45, 43, 43, 0.18);
+            background: rgba(255, 255, 255, 0.22);
+            border-radius: 14px;
+            padding: 0.7rem 0.95rem 0.7rem 2.35rem;
+            outline: none;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.03);
+        }
+
+        .search-input:focus {
+            border-color: rgba(183, 110, 121, 0.55);
+            box-shadow: 0 12px 26px rgba(183, 110, 121, 0.08);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.65;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 0.65rem;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            padding: 0.25rem;
+            opacity: 0.6;
+            display: none;
+        }
+
+        .clear-btn:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.03);
+        }
+
+        .search-meta {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 0 0 0.6rem;
+            display: none;
+            line-height: 1.2;
+        }
+
+        .search-nav {
+            display: none;
+            gap: 6px;
+            flex: 0 0 auto;
+            margin: 0 0 0.6rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            border: 1px solid rgba(45, 43, 43, 0.16);
+            background: rgba(255, 255, 255, 0.50);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+            display: grid;
+            place-items: center;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        /* TOC linkleri */
+        .list-group-item {
+            background: transparent;
+            border: none;
+            border-radius: 12px !important;
+            padding: 0.65rem 0.75rem;
+            color: var(--text);
+        }
+
+        .list-group-item:hover {
+            background: rgba(183, 110, 121, 0.08);
+        }
+
+        .list-group-item.active {
+            background: rgba(183, 110, 121, 0.14) !important;
+            color: var(--text) !important;
+            border: 1px solid rgba(183, 110, 121, 0.35) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        /* İçerik kart */
+        .content-card {
+            background: rgba(255, 255, 255, 0.28);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.25rem;
+        }
+
+        @media (min-width: 992px) {
+            .content-card {
+                padding: 1.75rem 2rem;
+            }
+        }
+
+        .section {
+            padding-top: 42px;
+            padding-bottom: 34px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            scroll-margin-top: 120px;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            padding-bottom: 10px;
+        }
+
+        .section h2 {
+            font-weight: 600;
+            font-size: 1.65rem;
+            margin-bottom: 0.85rem;
+            color: var(--text);
+            letter-spacing: 0.2px;
+        }
+
+        .section p {
+            margin-bottom: 0.85rem;
+        }
+
+        /* Highlight */
+        mark.search-hit {
+            background: rgba(183, 110, 121, 0.22);
+            color: var(--text);
+            padding: 0 0.2em;
+            border-radius: 6px;
+        }
+
+        mark.search-hit.current-hit {
+            background: rgba(183, 110, 121, 0.35);
+            outline: 1px solid rgba(183, 110, 121, 0.55);
+        }
+
+        /* Footer */
+        .footer-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3rem 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        @media (min-width: 992px) {
+            .footer-card {
+                padding: 3.5rem 2.5rem;
+            }
+        }
+
+        /* Mobil Yukarı çık */
+        .to-top {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 43, 43, 0.16);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .to-top i {
+            font-size: 1.2rem;
+        }
+
+        @media (min-width: 768px) {
+            .to-top {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm">
+        <div class="container d-flex align-items-center">
+
+            <!-- Not: Buradaki linki kendi yapına göre ayarla -->
+            <a class="navbar-brand mb-0 d-flex align-items-center gap-2" href="../../index.html" aria-label="Anasayfa">
+                <i class="bi bi-house home-icon"></i>
+                <span>SantheraLab</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Menü">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse align-items-center" id="navbarNav">
+                <ul class="navbar-nav mx-auto align-items-center">
+                    <!-- Not: Linkleri kendi yapına göre ayarla -->
+                    <li class="nav-item"><a class="nav-link" href="../../blog/index.html?cat=vitamin-mineral">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="index.html">Vitaminler</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../mineral/index.html">Mineraller</a></li>
+                </ul>
+
+                <!-- Navbar'da SADECE Eczacımıza Danışın -->
+                <div class="d-flex align-items-center">
+                    <a href="https://wa.me/9053XXXXXXXX" target="_blank" rel="noopener"
+                        class="btn btn-outline-dark rounded-pill px-3 py-1">
+                        <i class="bi bi-chat-dots me-1"></i>
+                        Eczacımıza Danışın
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Başlık -->
+    <div class="container my-5">
+        <div class="page-hero text-center">
+            <h1 class="display-5 fw-semibold">Hayati Öneme Sahip Vitaminler</h1>
+            <p class="lead mb-0">Bağışıklık, enerji ve cilt sağlığı için vazgeçilmez vitaminlerin faydalarını keşfedin.
+            </p>
+        </div>
+    </div>
+
+    <!-- İçerik -->
+    <div class="container mb-5">
+        <div class="row g-4">
+
+            <!-- İçindekiler + Arama -->
+            <div class="col-md-3">
+                <div class="toc-card sticky-sidebar">
+                    <div class="toc-title">İçindekiler</div>
+
+                    <div class="search-wrap">
+                        <i class="bi bi-search search-icon"></i>
+                        <input id="searchBox" class="search-input" type="search" placeholder="Ara" autocomplete="off" />
+                        <button id="clearSearch" class="clear-btn" type="button" aria-label="Temizle">
+                            <i class="bi bi-x-circle"></i>
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between gap-2">
+                        <div id="searchMeta" class="search-meta"></div>
+
+                        <div id="searchNav" class="search-nav">
+                            <button id="prevHit" class="nav-btn" type="button" aria-label="Önceki eşleşme">
+                                <i class="bi bi-chevron-up"></i>
+                            </button>
+                            <button id="nextHit" class="nav-btn" type="button" aria-label="Sonraki eşleşme">
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="list-group" id="toc">
+                        <a href="#vitamina" class="list-group-item list-group-item-action">Vitamin A</a>
+                        <a href="#vitaminb" class="list-group-item list-group-item-action">Vitamin B Kompleksi</a>
+                        <a href="#vitaminc" class="list-group-item list-group-item-action">Vitamin C</a>
+                        <a href="#vitamind" class="list-group-item list-group-item-action">Vitamin D</a>
+                        <a href="#vitamine" class="list-group-item list-group-item-action">Vitamin E</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ana içerik -->
+            <div class="col-md-9">
+                <div class="content-card" id="content">
+
+                    <div id="vitamina" class="section">
+                        <h2>Vitamin A</h2>
+                        <p>Göz sağlığı, bağışıklık sistemi ve cilt onarımı için gereklidir. Retinol olarak da bilinir.
+                        </p>
+                    </div>
+
+                    <div id="vitaminb" class="section">
+                        <h2>Vitamin B Kompleksi</h2>
+                        <p>B1, B2, B3, B6, B12 gibi vitaminleri içerir. Enerji üretimi, sinir sistemi ve hücre
+                            metabolizmasında
+                            etkilidir.</p>
+                    </div>
+
+                    <div id="vitaminc" class="section">
+                        <h2>Vitamin C</h2>
+                        <p>Antioksidan etkisi vardır, bağışıklığı güçlendirir, kolajen üretiminde rol oynar.</p>
+                    </div>
+
+                    <div id="vitamind" class="section">
+                        <h2>Vitamin D</h2>
+                        <p>Kemik sağlığı için kalsiyum emilimini artırır. Güneş ışığı ile sentezlenebilir.</p>
+                    </div>
+
+                    <div id="vitamine" class="section">
+                        <h2>Vitamin E</h2>
+                        <p>Cilt sağlığı ve hücre yenilenmesinde etkilidir. Güçlü bir antioksidandır.</p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="container mb-5">
+        <div class="footer-card text-center">
+
+            <div class="row justify-content-center align-items-start">
+
+                <div class="col-md-4 mb-4 pt-1">
+                    <h5 class="mb-2">İletişim</h5>
+                    <a href="https://wa.me/9053XXXXXXXX" target="_blank">
+                        <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                    </a>
+                    <div class="mt-1">
+                        <a href="mailto:santheralab@gmail.com">
+                            <i class="bi bi-envelope me-1"></i> santheralab@gmail.com
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4 d-flex flex-column align-items-center pt-4">
+                    <a href="https://wa.me/9053XXXXXXXX" target="_blank"
+                        class="btn btn-outline-dark px-4 py-2 rounded-pill mb-2">
+                        <i class="bi bi-chat-dots me-2"></i>
+                        Eczacımıza Danışın
+                    </a>
+
+                    <div class="small text-muted opacity-75">
+                        <i class="bi bi-geo-alt me-1"></i>
+                        Lefkoşa · Kuzey Kıbrıs
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4 pt-1">
+                    <h5 class="mb-2">Sosyal Medya</h5>
+                    <a href="https://www.instagram.com/eczserife" target="_blank">
+                        <i class="bi bi-instagram me-1"></i> Instagram
+                    </a>
+                </div>
+
+            </div>
+
+            <p class="mt-4 mb-0">
+                &copy; 2026 SantheraLab · Tüm hakları saklıdır.
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- Mobil Yukarı Çık -->
+    <button id="toTop" class="to-top" type="button" aria-label="Yukarı çık">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ===== İçindekiler aktif bölüm =====
+        const tocLinks = Array.from(document.querySelectorAll('#toc a'))
+            .filter(a => a.getAttribute('href') && a.getAttribute('href').startsWith('#'));
+
+        const sections = tocLinks
+            .map(a => document.querySelector(a.getAttribute('href')))
+            .filter(Boolean);
+
+        const setActive = (id) => {
+            tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            const visible = entries
+                .filter(e => e.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+            if (visible) setActive(visible.target.id);
+        }, {
+            root: null,
+            rootMargin: '-35% 0px -55% 0px',
+            threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+        });
+
+        sections.forEach(sec => observer.observe(sec));
+        if (sections[0]) setActive(sections[0].id);
+
+        // ===== Arama: TOC filtre + içerik highlight + ileri/geri =====
+        const searchBox = document.getElementById('searchBox');
+        const clearBtn = document.getElementById('clearSearch');
+        const meta = document.getElementById('searchMeta');
+        const content = document.getElementById('content');
+
+        const searchNav = document.getElementById('searchNav');
+        const prevHitBtn = document.getElementById('prevHit');
+        const nextHitBtn = document.getElementById('nextHit');
+
+        let hits = [];
+        let currentHitIndex = -1;
+
+        function escapeRegExp(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function unwrapMarks(root) {
+            root.querySelectorAll('mark.search-hit').forEach(mark => {
+                const text = document.createTextNode(mark.textContent);
+                mark.replaceWith(text);
+            });
+            root.normalize();
+        }
+
+        function highlightText(root, query) {
+            if (!query) return 0;
+            const re = new RegExp(escapeRegExp(query), 'gi');
+            let count = 0;
+
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+                acceptNode(node) {
+                    if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+                    const parent = node.parentElement;
+                    if (!parent) return NodeFilter.FILTER_REJECT;
+                    if (parent.closest('script, style, mark')) return NodeFilter.FILTER_REJECT;
+                    return re.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+                }
+            });
+
+            const nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+
+            nodes.forEach(textNode => {
+                const frag = document.createDocumentFragment();
+                const text = textNode.nodeValue;
+                let lastIndex = 0;
+
+                text.replace(re, (match, offset) => {
+                    if (offset > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                    const mark = document.createElement('mark');
+                    mark.className = 'search-hit';
+                    mark.textContent = match;
+                    frag.appendChild(mark);
+                    lastIndex = offset + match.length;
+                    count++;
+                    return match;
+                });
+
+                if (lastIndex < text.length) frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+                textNode.replaceWith(frag);
+            });
+
+            return count;
+        }
+
+        function filterToc(query) {
+            const q = query.toLowerCase().trim();
+            tocLinks.forEach(a => {
+                const show = !q || a.textContent.toLowerCase().includes(q);
+                a.style.display = show ? '' : 'none';
+            });
+        }
+
+        function collectHits() {
+            hits = Array.from(content.querySelectorAll('mark.search-hit'));
+            currentHitIndex = hits.length ? 0 : -1;
+        }
+
+        function setCurrentHit(index) {
+            if (!hits.length) return;
+
+            hits.forEach(m => m.classList.remove('current-hit'));
+            currentHitIndex = (index + hits.length) % hits.length;
+
+            const el = hits[currentHitIndex];
+            el.classList.add('current-hit');
+
+            const y = el.getBoundingClientRect().top + window.scrollY - 140;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+
+            prevHitBtn.disabled = hits.length <= 1;
+            nextHitBtn.disabled = hits.length <= 1;
+        }
+
+        function updateNavUI() {
+            const q = searchBox.value.trim();
+            const has = q && hits.length;
+
+            searchNav.style.display = has ? 'flex' : 'none';
+            prevHitBtn.disabled = hits.length <= 1;
+            nextHitBtn.disabled = hits.length <= 1;
+        }
+
+        function updateSearch() {
+            const q = searchBox.value.trim();
+
+            clearBtn.style.display = q ? 'block' : 'none';
+
+            filterToc(q);
+
+            unwrapMarks(content);
+            const hitCount = q ? highlightText(content, q) : 0;
+
+            collectHits();
+            updateNavUI();
+
+            if (q) {
+                meta.style.display = 'block';
+                meta.textContent = `${hitCount} eşleşme `;
+                if (hits.length) setCurrentHit(0);
+            } else {
+                meta.style.display = 'none';
+                meta.textContent = '';
+            }
+        }
+
+        searchBox.addEventListener('input', updateSearch);
+
+        searchBox.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && hits.length) {
+                e.preventDefault();
+                setCurrentHit(currentHitIndex + (e.shiftKey ? -1 : 1));
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            searchBox.value = '';
+            updateSearch();
+            searchBox.focus();
+        });
+
+        prevHitBtn.addEventListener('click', () => {
+            if (hits.length) setCurrentHit(currentHitIndex - 1);
+        });
+
+        nextHitBtn.addEventListener('click', () => {
+            if (hits.length) setCurrentHit(currentHitIndex + 1);
+        });
+
+        // ===== Mobil "Yukarı çık" =====
+        const toTop = document.getElementById('toTop');
+
+        function toggleToTop() {
+            const isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+            const show = isMobile && window.scrollY > 500;
+            toTop.style.display = show ? 'flex' : 'none';
+        }
+
+        window.addEventListener('scroll', toggleToTop, { passive: true });
+        window.addEventListener('resize', toggleToTop);
+        toggleToTop();
+
+        toTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+
+</html>
