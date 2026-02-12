@@ -24,8 +24,8 @@
     }
 
     /* =========================
-      Base
-    ========================= */
+    Base
+  ========================= */
     body {
       background-color: var(--bg);
       font-family: 'Cormorant Garamond', serif;
@@ -53,8 +53,8 @@
     }
 
     /* =========================
-      Navbar
-    ========================= */
+    Navbar
+  ========================= */
     .navbar {
       border-bottom: 1px solid rgba(0, 0, 0, 0.08);
       background-color: rgba(249, 246, 241, 0.92);
@@ -102,8 +102,8 @@
     }
 
     /* =========================
-      Hero
-    ========================= */
+    Hero
+  ========================= */
     .page-hero {
       background: var(--glass);
       border: 1px solid var(--border);
@@ -121,8 +121,8 @@
     }
 
     /* =========================
-      Filter Pills
-    ========================= */
+    Filter Pills
+  ========================= */
     .filter-wrap {
       display: flex;
       justify-content: center;
@@ -163,8 +163,8 @@
     }
 
     /* =========================
-      Search (blog list)
-    ========================= */
+    Search (blog list)
+  ========================= */
     .search-row {
       display: flex;
       justify-content: center;
@@ -263,8 +263,8 @@
     }
 
     /* =========================
-      Cards
-    ========================= */
+    Cards
+  ========================= */
     .post-grid {
       margin-top: 2rem;
     }
@@ -348,8 +348,8 @@
     }
 
     /* =========================
-      Footer
-    ========================= */
+    Footer
+  ========================= */
     .footer-card {
       background: var(--glass);
       border: 1px solid var(--border);
@@ -360,8 +360,8 @@
     }
 
     /* =========================
-      Empty State
-    ========================= */
+    Empty State
+  ========================= */
     .empty-state {
       display: none;
       text-align: center;
@@ -374,8 +374,21 @@
     }
 
     /* =========================
-      Desktop Tweaks
-    ========================= */
+    Author (DEFAULT: mobile/tablet)
+  ========================= */
+    .hero-author {
+      position: static;
+      display: block;
+      text-align: center;
+      margin-top: 0.65rem;
+      font-size: 0.92rem;
+      color: #6b6b6b;
+      opacity: 0.75;
+    }
+
+    /* =========================
+    Desktop Tweaks
+  ========================= */
     @media (min-width: 992px) {
       .page-hero {
         padding: 2.75rem 2.25rem;
@@ -384,12 +397,23 @@
       .footer-card {
         padding: 3.5rem 2.5rem;
       }
+
+      /* Author only on desktop: absolute bottom-left */
+      .hero-author {
+        position: absolute;
+        left: 1.5rem;
+        bottom: 1.2rem;
+        margin-top: 0;
+        text-align: left;
+        font-size: 0.95rem;
+        opacity: 0.8;
+      }
     }
 
     /* =========================
-      Small Screens (mobile + small tablets)
-      -> pill'leri tek satır + yatay kaydır
-    ========================= */
+    Small Screens (mobile + small tablets)
+    -> pill'leri tek satır + yatay kaydır
+  ========================= */
     @media (max-width: 991.98px) {
       .filter-wrap {
         justify-content: flex-start;
@@ -423,8 +447,8 @@
     }
 
     /* =========================
-      Mobile (0 - 575.98px)
-    ========================= */
+    Mobile (0 - 575.98px)
+  ========================= */
     @media (max-width: 575.98px) {
       .page-hero {
         padding: 1.6rem 1rem;
@@ -477,16 +501,8 @@
       transform: translateY(0);
       pointer-events: auto;
     }
-
-    .hero-author {
-      position: absolute;
-      left: 1.5rem;
-      bottom: 1.2rem;
-      font-size: 0.95rem;
-      color: #6b6b6b;
-      opacity: 0.8;
-    }
   </style>
+
 </head>
 
 <body>
