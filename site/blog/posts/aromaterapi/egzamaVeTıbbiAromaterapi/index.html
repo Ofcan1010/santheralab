@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Egzama ve Tıbbi Aromaterapi</title>
+
+    <!-- Bootstrap, Google Font, Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&display=swap"
+        rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <style>
+        :root {
+            --bg: #f9f6f1;
+            --text: #2d2b2b;
+            --muted: #6b6b6b;
+            --border: rgba(45, 43, 43, 0.12);
+            --accent: #b76e79;
+            --glass: rgba(255, 255, 255, 0.35);
+            --shadow: 0 12px 30px rgba(0, 0, 0, 0.04);
+            --radius: 18px;
+        }
+
+        body {
+            background-color: var(--bg);
+            font-family: 'Cormorant Garamond', serif;
+            color: var(--text);
+            font-size: 18px;
+            line-height: 1.75;
+            scroll-behavior: smooth;
+            padding-top: 110px;
+        }
+
+        p,
+        li {
+            color: var(--muted);
+        }
+
+        a {
+            color: var(--text);
+            text-decoration: none;
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            word-break: break-word;
+        }
+
+        a:hover {
+            opacity: 0.7;
+            transform: translateY(-1px);
+        }
+
+        /* Navbar */
+        .navbar {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            background-color: rgba(249, 246, 241, 0.92);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            min-height: 84px;
+        }
+
+        .navbar-toggler {
+            border: 1px solid rgba(45, 43, 43, 0.18);
+            border-radius: 14px;
+            padding: 0.45rem 0.6rem;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.04);
+        }
+
+        .navbar-toggler:focus {
+            box-shadow: 0 12px 26px rgba(183, 110, 121, 0.10);
+            border-color: rgba(183, 110, 121, 0.45);
+        }
+
+        .navbar-brand {
+            font-weight: 600;
+            font-size: 24px;
+            letter-spacing: 2px;
+        }
+
+        .nav-link {
+            font-size: 18px;
+            padding-right: 20px;
+        }
+
+        .nav-link.active {
+            font-weight: 600;
+            color: var(--accent) !important;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        .home-icon {
+            font-size: 1.1rem;
+            opacity: 0.75;
+        }
+
+        .navbar-brand:hover .home-icon {
+            opacity: 1;
+        }
+
+        /* Hero */
+        .page-hero {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2.25rem 1.5rem;
+            position: relative;
+        }
+
+        @media (min-width: 992px) {
+            .page-hero {
+                padding: 2.75rem 2.25rem;
+            }
+        }
+
+        .page-hero .lead {
+            color: #4f4f4f;
+            max-width: 70ch;
+            margin: 0.25rem auto 0;
+        }
+
+        /* Sol menü sticky */
+        .sticky-sidebar {
+            position: sticky;
+            top: 110px;
+        }
+
+        @media (max-width: 767.98px) {
+            .sticky-sidebar {
+                position: static;
+                top: auto;
+            }
+        }
+
+        .toc-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1rem;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .toc-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.06);
+        }
+
+        .toc-title {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin: 0.25rem 0 0.75rem;
+        }
+
+        /* Arama */
+        .search-wrap {
+            position: relative;
+            margin-bottom: 0.85rem;
+        }
+
+        .search-input {
+            width: 100%;
+            border: 1px solid rgba(45, 43, 43, 0.18);
+            background: rgba(255, 255, 255, 0.22);
+            border-radius: 14px;
+            padding: 0.7rem 0.95rem 0.7rem 2.35rem;
+            outline: none;
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.03);
+        }
+
+        .search-input:focus {
+            border-color: rgba(183, 110, 121, 0.55);
+            box-shadow: 0 12px 26px rgba(183, 110, 121, 0.08);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            opacity: 0.65;
+        }
+
+        .clear-btn {
+            position: absolute;
+            right: 0.65rem;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            padding: 0.25rem;
+            opacity: 0.6;
+            display: none;
+        }
+
+        .clear-btn:hover {
+            opacity: 1;
+            transform: translateY(-50%) scale(1.03);
+        }
+
+        .search-meta {
+            font-size: 0.95rem;
+            color: #555;
+            margin: 0 0 0.6rem;
+            display: none;
+            line-height: 1.2;
+        }
+
+        .search-nav {
+            display: none;
+            gap: 6px;
+            flex: 0 0 auto;
+            margin: 0 0 0.6rem;
+        }
+
+        .nav-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 14px;
+            border: 1px solid rgba(45, 43, 43, 0.16);
+            background: rgba(255, 255, 255, 0.50);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 10px 22px rgba(0, 0, 0, 0.05);
+            display: grid;
+            place-items: center;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+        }
+
+        .nav-btn:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+        }
+
+        .nav-btn:hover:not(:disabled) {
+            transform: translateY(-1px);
+        }
+
+        /* TOC linkleri */
+        .list-group-item {
+            background: transparent;
+            border: none;
+            border-radius: 12px !important;
+            padding: 0.65rem 0.75rem;
+            color: var(--text);
+        }
+
+        .list-group-item:hover {
+            background: rgba(183, 110, 121, 0.08);
+        }
+
+        .list-group-item.active {
+            background: rgba(183, 110, 121, 0.14) !important;
+            color: var(--text) !important;
+            border: 1px solid rgba(183, 110, 121, 0.35) !important;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+        }
+
+        /* İçerik kart */
+        .content-card {
+            background: rgba(255, 255, 255, 0.28);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 1.25rem;
+        }
+
+        @media (min-width: 992px) {
+            .content-card {
+                padding: 1.75rem 2rem;
+            }
+        }
+
+        .section {
+            padding-top: 42px;
+            padding-bottom: 34px;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+            scroll-margin-top: 120px;
+        }
+
+        .section:last-child {
+            border-bottom: none;
+            padding-bottom: 10px;
+        }
+
+        .section h2 {
+            font-weight: 600;
+            font-size: 1.65rem;
+            margin-bottom: 0.85rem;
+            color: var(--text);
+            letter-spacing: 0.2px;
+        }
+
+        .section p {
+            margin-bottom: 0.85rem;
+        }
+
+        .content-card ul {
+            padding-left: 1.1rem;
+            margin-bottom: 0.95rem;
+        }
+
+        .content-card li {
+            margin-bottom: 0.35rem;
+        }
+
+        /* Highlight */
+        mark.search-hit {
+            background: rgba(183, 110, 121, 0.22);
+            color: var(--text);
+            padding: 0 0.2em;
+            border-radius: 6px;
+        }
+
+        mark.search-hit.current-hit {
+            background: rgba(183, 110, 121, 0.35);
+            outline: 1px solid rgba(183, 110, 121, 0.55);
+        }
+
+        /* WhatsApp butonu */
+        .btn-whatsapp {
+            background-color: #25d366;
+            border: none;
+            color: #0b3b22;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: #1ebd5a;
+        }
+
+        /* Footer */
+        .footer-card {
+            background: var(--glass);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 3rem 1.5rem;
+            box-shadow: var(--shadow);
+        }
+
+        @media (min-width: 992px) {
+            .footer-card {
+                padding: 3.5rem 2.5rem;
+            }
+        }
+
+        /* Mobil Yukarı çık */
+        .to-top {
+            position: fixed;
+            right: 16px;
+            bottom: 16px;
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            border: 1px solid rgba(45, 43, 43, 0.16);
+            background: rgba(255, 255, 255, 0.65);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            box-shadow: 0 14px 30px rgba(0, 0, 0, 0.10);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+        }
+
+        .to-top i {
+            font-size: 1.2rem;
+        }
+
+        @media (min-width: 768px) {
+            .to-top {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top navbar-light shadow-sm">
+        <div class="container d-flex align-items-center">
+
+            <a class="navbar-brand mb-0 d-flex align-items-center gap-2" href="../../../../index.html"
+                aria-label="Anasayfa">
+                <i class="bi bi-house home-icon"></i>
+                <span>SantheraLab</span>
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Menü">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse align-items-center" id="navbarNav">
+                <ul class="navbar-nav mx-auto align-items-center">
+                    <li class="nav-item"><a class="nav-link active"
+                            href="../../../../blog/index.html?cat=aromaterapi">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                            href="../../../../aromaterapi/serumlar/index.html">Serumlar</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                            href="../../../../aromaterapi/sabit-yaglar/index.html">Sabit Yağlar</a></li>
+                    <li class="nav-item"><a class="nav-link"
+                            href="../../../../aromaterapi/ucucu-yaglar/index.html">Uçucu Yağlar</a></li>
+                </ul>
+
+                <div class="d-flex align-items-center">
+                    <a href="https://wa.me/9053XXXXXXXX" target="_blank"
+                        class="btn btn-outline-dark rounded-pill px-3 py-1">
+                        <i class="bi bi-chat-dots me-1"></i>
+                        Eczacımıza Danışın
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+
+    <!-- Başlık -->
+    <div class="container my-5">
+        <div class="page-hero text-center">
+            <h1 class="display-5 fw-semibold">Egzama ve Tıbbi Aromaterapi</h1>
+            <p class="lead mb-0">Ecz. Şerife Ademoğulları</p>
+        </div>
+    </div>
+
+    <!-- İçerik -->
+    <div class="container mb-5">
+        <div class="row g-4">
+
+            <!-- İçindekiler + Arama -->
+            <div class="col-md-3">
+                <div class="toc-card sticky-sidebar">
+                    <div class="toc-title">İçindekiler Tablosu</div>
+
+                    <div class="search-wrap">
+                        <i class="bi bi-search search-icon"></i>
+                        <input id="searchBox" class="search-input" type="search" placeholder="Ara" autocomplete="off" />
+                        <button id="clearSearch" class="clear-btn" type="button" aria-label="Temizle">
+                            <i class="bi bi-x-circle"></i>
+                        </button>
+                    </div>
+
+                    <div class="d-flex align-items-center justify-content-between gap-2">
+                        <div id="searchMeta" class="search-meta"></div>
+
+                        <div id="searchNav" class="search-nav">
+                            <button id="prevHit" class="nav-btn" type="button" aria-label="Önceki eşleşme">
+                                <i class="bi bi-chevron-up"></i>
+                            </button>
+                            <button id="nextHit" class="nav-btn" type="button" aria-label="Sonraki eşleşme">
+                                <i class="bi bi-chevron-down"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="list-group" id="toc">
+                        <a href="#s1" class="list-group-item list-group-item-action">1. EGZAMA NEDİR ?</a>
+                        <a href="#s2" class="list-group-item list-group-item-action">2. EGZAMA ÇEŞİTLERİ NELERDİR ?</a>
+                        <a href="#s3" class="list-group-item list-group-item-action">3. EGZAMA SEMPTOMLARI NELERDİR
+                            ?</a>
+                        <a href="#s4" class="list-group-item list-group-item-action">4. EGZAMA TANISI VE TEDAVİSİ NASIL
+                            OLUR ?</a>
+                        <a href="#s5" class="list-group-item list-group-item-action">5. TIBBİ AROMATERAPİ NEDİR ?</a>
+                        <a href="#s6" class="list-group-item list-group-item-action">6. AROMATERAPİDE EGZAMA DESTEĞİ
+                            NASIL OLMALIDIR ?</a>
+                        <a href="#s7" class="list-group-item list-group-item-action">7. EGZAMALI CİLTTE UÇUCU YAĞ
+                            KULLANIMI VE DİKKAT EDİLMESİ GEREKENLER NELERDİR ?</a>
+                        <a href="#s8" class="list-group-item list-group-item-action">8. EGZAMADA AROMATERAPİYE EK
+                            KULLANILMASI GEREKEN TAKVİYE EDİCİ GIDALAR :</a>
+                        <a href="#s9" class="list-group-item list-group-item-action">9. AROMATERAPİ YAĞLARI HAKKINDA
+                            YANLIŞ BİLİNENLER</a>
+                        <a href="#s10" class="list-group-item list-group-item-action">10. ÖZET</a>
+                        <a href="#s11" class="list-group-item list-group-item-action">11. REFERANSLAR</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ana içerik -->
+            <div class="col-md-9">
+                <div class="content-card" id="content">
+
+                    <div id="s1" class="section">
+                        <h2>1. EGZAMA NEDİR ?</h2>
+                        <p>İnflamatuar cilt rahatsızlıkları grubunun genel adı olarak adlandırılan egzama ciltte
+                            kuruluk, pul pul dökülme, kaşıntı, kızarıklık, döküntü ve iltihaplı durumlara sebebiyet
+                            verebilir. Oldukça rahatsız edici bir cilt hastalığıdır. Egzama tanısı almış hastaların
+                            çoğunun ‘atak dönemi’ olarak adlandırdığı bir dönem vardır ve atak dönemlerinde hayat
+                            kalitesini fazlasıyla düşürür. Stresin daha yoğun olduğu ve yeme içme düzeninin bozulduğu
+                            dönemlerde daha fazla görülen bu atak dönemi lezyonların artması anlamına gelir. Atak
+                            dönemlerinde özellikle lezyonlar günler veya haftalarca iyileşme göstermeyebilirler.
+                            Şiddetli egzama, tedavi edilmezse hastaneye yatışa yol açabilecek enfeksiyonlar gibi
+                            kaşıntılı deri ve döküntülerin ötesinde ek komplikasyonlara da neden olabilir. Egzamanın
+                            kalıcı bir tedavisi olmasa da atak döneminde cildi rahatlatacak bazı uygulamalar mevcuttur.
+                        </p>
+                    </div>
+
+                    <div id="s2" class="section">
+                        <h2>2. EGZAMA ÇEŞİTLERİ NELERDİR ?</h2>
+                        <p>Egzama farklı çeşitleri olan bir deri hastalığıdır. Bilinen farklı 7 tipi var. Farklı olsalar
+                            da ortak sebepler ve lezyonlar mevcuttur. Bu farklı 7 tipi aşağıda detaylarıyla beraber
+                            bulabilirsiniz;</p>
+
+                        <ul>
+                            <li>Atopik dermatit : En yaygın egzama tipidir. Zaman içerisinde atopik dermatitin adı
+                                genelleştirilerek sadece egzama olarak anılmaya başlanmıştır. Belirtileri arasında
+                                kaşıntı, kızarık ve enflamasyonlu lezyonlar mevcuttur. En yaygın semptom döküntülere,
+                                ağrıya hatta uyku bozukluğuna sebebiyet veren kaşıntıdır.</li>
+                            <li>Kontakt dermatit : Çevresel faktörlerlere karşı alerjik reaksiyon sonucu ortaya çıkar.
+                                Alerjen bir madde veya bir tetikleyicinin cilde temasıyla iltihaplanma ve kaşıntının
+                                başlamasıyla ortaya çıkar.</li>
+                            <li>Dishidrotik egzama veya Dishidroz : El ve ayak parmak aralarında, avuç içlerinde ve
+                                ayak tabanlarında görülür. Lezyonların kenar kısımlarında kaşıntılı, içi su dolu
+                                kabarcıklar ortaya çıkar. Bu kabarcıklar ağrılı olabilir. İyileşirken çatlamış ve pul
+                                pul görünüm ortaya çıkar. Mevsimsel alerjiler, alerjen maddeler, fazla stres ve uygunsuz
+                                terleme mekanizmaları ile el ve ayakta fazla nem dishidroza sebebiyet verebilir.</li>
+                            <li>Nörodermatit : Kaşıntılı bir cilt parçasıyla başlayarak kaşıntı döngüsüne yol açar.
+                                Lokal tahriş ve stresle tetiklenir. Cilt sertleşir. Atopik dermatitin aksine yayılmaz.
+                                Bir veya iki cilt bölgesi ile sınırlı kalır.</li>
+                            <li>Nummular egzama veya Numuler dermatit : Ciltte madeni para gibi yuvarlak kaşıntılı,
+                                tahriş olmuş ve kızarık lezyonlarla kendini gösterir. Daha çok ergenlerde ve daha
+                                sonrasında yetişkinlerde görülür. Genellikle kuru ve hassas ciltlerde ve en sık kollar,
+                                bacaklar ve gövdede görünür. Lezyonlar zamanla kabuklu ve pullu hale gelebilir.</li>
+                            <li>Seboreik dermatit veya Beşik başlığı : Kafa derisi, yüz özellikle kaş ve burun bölgesi,
+                                göğüs üzerinde ve kasık bölgesinde yani yağ üreten sebase bezinin daha yoğun olduğu
+                                bölgelerde oluşan bir egzama türüdür. Yağlı, iltihaplı ve sarımsı pul pul görüntüye
+                                sebep olur.</li>
+                            <li>Stasis dermatit veya Venöz egzama veya Varisli egzama : Genellikle kan akışının yavaş
+                                olduğu alt bacakta çok yaygın görünür. Bulaşıcı değildir ama yaygındır. Özellikle
+                                varisli, genişlemiş ve çıkıntılı damarların üzerinde şişlik ve hafif renk değişimi bu
+                                rahatsızlığın belirtisi olabilir.</li>
+                        </ul>
+
+                        <p>7 farklı türde egzama olmasına rağmen aynı anda birden fazla egzama türünü yaşamak mümkündür.
+                            Etkili tanı ve doğru tedavi için hangi egzama türünü yaşadığınızı bilmek çok önemlidir.</p>
+                    </div>
+
+                    <div id="s3" class="section">
+                        <h2>3. EGZAMA SEMPTOMLARI NELERDİR ?</h2>
+                        <p>Egzama denince akla ilk gelen şey kaşıntı ve kuruluktur. Çoğu kişi için kaşıntı hafif ile
+                            orta derecedeyken bazı kişiler için çok daha şiddetli olabilir. Kaşıntı o kadar şiddetlenir
+                            ki kişiler kanayana kadar derisini kaşıyabilir ve buna da ‘kaşıntı-kaşıma döngüsü’ adı
+                            verilir.</p>
+                        <p>Fakat bilinmesi gereken en önemli şeylerden biri egzama semptomları herkes için farklılık
+                            gösterebilir. Egzamanızın sizde gösterdiği semptomlarla ailenizde egzaması olan bir kişiden
+                            veya hiç tanımadığınız birinin egzaması herhangi birinden çok farklı olabilir.</p>
+
+                        <p>Egzama belirtileri genellikle aşağıdaki gibidir;</p>
+                        <ul>
+                            <li>Kaşıntılı</li>
+                            <li>Kızarıklık</li>
+                            <li>Kuru cilt</li>
+                            <li>İltihaplı cilt</li>
+                            <li>Pul pul dökülme</li>
+                            <li>Yangı hissi</li>
+                            <li>Şişme</li>
+                            <li>Renksiz cilt</li>
+                            <li>Döküntü</li>
+                            <li>Kaba ve kösele cilt görüntüsü</li>
+                        </ul>
+                    </div>
+
+                    <div id="s4" class="section">
+                        <h2>4. EGZAMA TANISI VE TEDAVİSİ NASIL OLUR ?</h2>
+                        <p>Cilt hastalıklarının birbirlerine benzerliklerinden ve benzer semptomlara sahip olmalarından
+                            dolayı sahip olduğunuz egzama türünü kendi başınıza belirlemeniz oldukça zordur. Bu yüzden
+                            doğru tanıyı alabilmek adına alanında uzman bir Deri ve Zührevi Hastalıkları Uzmanına yani
+                            Dermatolog’a görünmeniz şarttır. Egzama teşhisinde genel olarak görsel ve/veya fiziksel
+                            muayene, aile hastalıklar geçmişinin sorgulanması ve/veya kan testleri de yapılabilir.
+                            Teşhisi aldıktan sonrasında ise sağlık uzmanınız sizin için kişiselleştirilmiş bir tedavi
+                            planı uygulayacaktır.</p>
+                        <p>Egzama tedavisinde genel olarak kullanılan ve en çok bilinen ilaçlar topikal
+                            kortikosteroidler, topikal fosfodiesteraz-4 inhibitörleri ve topikal kalsinörin
+                            inhibitörleri olacaktır. Bu ilaçlar anti-inflamatuar ilaçlarıdır. İltihabı hafifleterek
+                            cildin daha normal görünmesine, lezyonların hafiflemesine ve kaşıntı kızarıklığın
+                            hafiflemesine yardımcı olurlar. Fakat kullanım süresi çok uzun değildir. Atak dönemlerinde
+                            kullanımı uygun olsada tedavi edici özellikte değillerdir.</p>
+                        <p>Ağızdan oral olarak alınan bazı ilaçlar da egzamayı rahatlatmakta yardımcı olabilir; sistemik
+                            immünomodülatörler, antibiyotikler ve antihistaminikler.</p>
+                        <p>Kaşıntı hafifletmekte, cilt enfeksiyonlarında enfeksiyonun yayılmasını engellemede ve vücudun
+                            aşırı tepki vermesini engellemek için bağışıklık sistemini zayıflatır.</p>
+                        <p>Bu ilaçları doktorlar sizin yaşınıza, tıbbi geçmişinize ve semptomların durumuna özel olarak
+                            reçete edeceklerdir.</p>
+                        <p>Reçete ile satın alacağınız bu ilaçlar dışında doğal şampuanlar, bariyer güçlendirici kremler
+                            ve tıbbi aromaterapiden de yararlanabilirsiniz.</p>
+                    </div>
+
+                    <div id="s5" class="section">
+                        <h2>5. TIBBİ AROMATERAPİ NEDİR ?</h2>
+                        <p>Tıbbi aromaterapi esansiyel yağların kullanılmasıyla tamamlayıcı bir tedavi sunar. Hem ruhsal
+                            hem bedensel olarak etki gösterir. Aromaterapi hastalığa yönelik değil kişiye yönelik
+                            bütüncül iyileşme sunar. Bunu örneklendirmek gerekirse; doktora gidip hastalığımızın
+                            iyileşmesi için reçete edilen ilaçları kullanırız. Aromaterapide ise o hastalığın neden
+                            olduğu kök sebebin ne olduğunu bulmak esastır. Yani konvansiyonel tıbbın yanında tamamlayıcı
+                            bir tedavi olarak görev alır.</p>
+                        <p>Baz yağlar ve uçucu yağları kullanan bir tamamlayıcı tedavi yöntemidir. İlaçlar gibi
+                            aromaterapide de doz ayarı çok önemlidir. Doğru konsantrasyonlarda kullanıldığında iyileşme
+                            en erken zamanda başlar ve akla gelebilecek bir çok hastalığın tedavisine ek kullanılabilir.
+                            Bu sebeple hastanın mutlaka tanı almış olması gerekir.</p>
+                    </div>
+
+                    <div id="s6" class="section">
+                        <h2>6. AROMATERAPİDE EGZAMA DESTEĞİ NASIL OLMALIDIR ?</h2>
+                        <p>Doğru tıbbi aromaterapi formülasyonunun oluşturulması için öncelikle egzamanın tipi
+                            belirlenmeli bu yüzden yukarıda da bahsetmiş olduğum gibi hastanın tanı almış olması çok
+                            önemlidir.</p>
+                        <p>Tıbbi aromaterapide özellikle baz yağların nemlendirme etkisi çok yüksektir. Peki hangi
+                            yağlar özellikle atak döneminde olan egzamanın yatışmasını sağlar ?</p>
+                        <p>Hodan yağı, Hindistan cevizi yağı, Karite (shea butter) yağı, Kuşburnu Çekirdeği yağı, Haşhaş
+                            yağı, Avokado yağı, Aynısefa yağı gibi baz yağlar egzamanın yatışmasını sağlayacaktır.
+                            Lavanta uçucu yağı, Nioli uçucu yağı, Ölmez Çiçek uçucu yağı ve Itır uçucu yağı da doğru
+                            seyreltilme oranı ile oluşturulacak baz serum içerisinde kullanılabilir.</p>
+                    </div>
+
+                    <div id="s7" class="section">
+                        <h2>7. EGZAMALI CİLTTE UÇUCU YAĞ KULLANIMI VE DİKKAT EDİLMESİ GEREKENLER NELERDİR ?</h2>
+                        <p>Tıbbi aromaterapide bazı uçucu yağlar doğrudan cilde sürülmemelidir. Özellikle egzama gibi
+                            kaşıntılı, kızarık, kabarık lezyonları olan cilt rahatsızlıklarında uçucu yağ seçiminde çok
+                            dikkatli olunması gerekir. Kullanacağımız yağın saflığını da düşünürsek baz yağlarla karışım
+                            oranı da fazlasıyla önem gösterir.</p>
+                        <p>Egzama için kullanıldığında etkilerini hemen gösteren 2 çok güçlü uçucu yağ bulunmakta. Nioli
+                            uçucu yağı ve Lavanta uçucu yağı.</p>
+                        <p>Nioli uçucu yağı çay ağacı ailesinden gelen ve 1,8-sineol aktif bileşenini yani ökaliptol
+                            içerir. Bu sayede çay ağacı uçucu yağına kıyasla daha güvenilir ve tahriş etmeyen bir
+                            şekilde kullanılır. Yoğun okaliptüs kokusu 1,8-sineol içeriğinden kaynaklanmaktadır. Güçlü
+                            bir antiseptik, antiviral ve antibakteriyel oluşu egzamada çok rahat kullanılabileceğini
+                            gösterir.</p>
+                        <p>Lavanta uçucu yağı çok yönlü kullanılan bir uçucu yağdır. Sakinleştirici, yatıştırıcı,
+                            antibakteriyel, antidepresan, antiseptik, analjezik, böcek kovucu gibi özellikleri vardır.
+                            Linalol ve linalil asetat aktif bileşenleridir.</p>
+                        <p>Bu iki uçucu yağ için dikkat edilmesi gereken önemli bir konu var; kafur oranı! Kafur
+                            molekülü bitkilerde az veya çok oranlarda bulunan bir keton bileşenidir. Keton bileşenleri
+                            akciğerlerde birikme yapabilirler, uzun solumalarda ciddi sorunlara yol açabilirler. Bu
+                            yüzden uçucu yağ seçimi yaparken ecocert sertifikalı yağların tercih edilmesi ve kafur
+                            oranlarının mutlaka göz önünde bulundurulması gerekir.</p>
+                    </div>
+
+                    <div id="s8" class="section">
+                        <h2>8. EGZAMADA AROMATERAPİYE EK KULLANILMASI GEREKEN TAKVİYE EDİCİ GIDALAR :</h2>
+                        <p>Egzama için kullanılması gereken çok önemli takviye edici gıdalar var. Bunlardan ilki
+                            prebiyotik ve probiyotikler. Prebiyotik bağırsak mikrobiyotamızda bulunan sağlıklı
+                            bakterilerin yani probiyotiklerin lifli yiyecekleridir. Bu lifli yiyecekler iyi bakterileri
+                            artırmak için kullanılır. Dıştan almak istediğimizde yoğurt, kefir, sirke, muz, soğan,
+                            sarımsak, enginar, yulaf vb... olabilir.</p>
+                        <p>Probiyotikler ise iyi bakterilerin daha da güçlenmesi ve iyileştirilmesi için kullanılan,
+                            genelde Lactobacillus ve Bifidobacterium türlerinin dışarıdan alınmasıyla oluşan
+                            takviyelerdir. Unutulmasın ki sağlıklı bir bağırsak florası sağlıklı bir cilt florası
+                            demektir. Bağırsak florası ne kadar güçlü ne kadar iyi olursa cilt hastalıklarımızın da o
+                            kadar erken iyileşmesi mümkün olacaktır.</p>
+                        <p>D vitamini düşük olan hastalarda cilt yenilenmesinin daha yavaş olduğu yapılan çalışmalarca
+                            belirlenmiş. Bu yüzden düşük olan D Vitamini seviyelerimizi en düşük 50ng/mL en yüksel
+                            80ng/mL olmalıdır.</p>
+                        <p>Omega 3 yağ asitleri inlamasyon azaltır ve cilt sağlığını destekler. Egzama için
+                            kullanılacağında EPA/DHA değerlerine dikkat edilmesi gerekir. EPA/DHA oranının 3/2 ve
+                            katlarının olmasına dikkat edilmeli ve iki değerin toplamı 1000mg ve üzeri olmalıdır.</p>
+                    </div>
+
+                    <div id="s9" class="section">
+                        <h2>9. AROMATERAPİ YAĞLARI HAKKINDA YANLIŞ BİLİNENLER</h2>
+
+                        <p><strong>HER YAĞ AYNI KALİTEDEDİR !</strong><br>Kesinlikle yanlış. Her yağ aynı kalitede üretilmez. Doğru
+                            yağı bulmak için mutlaka sertifikalarına bakılmalı ve içerik analizi yapılmış yağlar tercih
+                            edilmelidir. Piyasada son dönemde tağşişli yağlar çok fazladır. Tağşiş nedir ? Saf bir
+                            maddenin içine sağ olmayan veya saflığı çok az olan bir maddenin katılıp gerçek değerinin
+                            düşürülmesidir.<br>Tağşişli yağlar tüm farmakolojik özelliklerini kaybeder ve tedaviye ek
+                            olarak etki göstermezler.</p>
+
+                        <p><strong>UÇUCU YAĞLAR SADECE KOKLAMAK İÇİNDİR !</strong><br>Yanlış. Uçucu yağları egzama, akne, roza gibi cilt
+                            hastalıkları için hazırlanan baz yağların içerisine katıyoruz. Bu serumun daha güçlü ve
+                            tamamlayıcı olmasına yardımcı oluyor. Ayrıca koklamak için de kullanıyoruz.</p>
+
+                        <p><strong>UÇUCU YAĞLARI DİFÜZÖRE NE KADAR FAZLA DAMLATIRSAK ETKİSİ O KADAR ARTAR !</strong><br>Yanlış.
+                            Aromaterapide az ama öz prensibi benimsenmiştir. Yeterli miktarlarda damlatılan uçucu yağlar
+                            görevini yeterince yapabilirler.</p>
+                    </div>
+
+                    <div id="s10" class="section">
+                        <h2>10. ÖZET</h2>
+                        <p>Egzama özellikle atak dönemlerinde çok yorucu olabiliyor. Kaşıntı, kızarıklık, kabarıklık
+                            gibi lezyonların gerilemesi için sadece doktorumuzun oral veya topikal reçete ettiği
+                            ilaçlarla değil doğru tıbbi aromaterapi ve kişiye özel gıda takviyeleri ile iyileşme
+                            sürecine katkıda bulunmak mümkün. Geri dönüşleri yüksek olan, doğanın bize sunduğu mucizevi
+                            yağları hayatımıza katmak bütüncül iyileşmeye atılan en etkili adım olacaktır. Egzama tipine
+                            göre seçilecek baz yani sabit ve uçucu yağları kişiye özel olarak hazırlanmalı ve hastayı
+                            takipte kalınmalıdır. Egzama tamamiyle iyileşen bir cilt rahatsızlığı değildir. Stresten
+                            uzak durulmalıdır. Stresi uzaklaştırmak için de aromaterapiden faydalanmak mümkündür. Yine
+                            kişiye özel stres koklama formülleri hazırlanabilir. Yeme içmeye çok özen gösterilmelidir.
+                            Baharatlı, acı, tatlı, paketli, glutenli gıdalardan uzak durulmalı daha çok lifli ve
+                            vitaminlerce zengin besinlerle beslenilmelidir. Cildimize uyguladığımız hazır dermakozmetik
+                            ürünlerin içeriğine çok dikkat edilmelidir. Tüm bunlara dikkat etmek ilk başta zor gelebilir
+                            ama egzamanın gerilemesi için bütüncül yaklaşım çok önemlidir.</p>
+                    </div>
+
+                    <div id="s11" class="section">
+                        <h2>11. REFERANSLAR</h2>
+                        <ul>
+                            <li><a href="https://www.ncbi.nlm.nih.gov/mesh/68003877" target="_blank"
+                                    rel="noopener">https://www.ncbi.nlm.nih.gov/mesh/68003877</a></li>
+                            <li><a href="https://www.cidjournal.com/article/S0738-081X(02)00357-7/abstract"
+                                    target="_blank"
+                                    rel="noopener">https://www.cidjournal.com/article/S0738-081X(02)00357-7/abstract</a>
+                            </li>
+                            <li><a href="https://nationaleczema.org/eczema/" target="_blank"
+                                    rel="noopener">https://nationaleczema.org/eczema/</a></li>
+                            <li><a href="https://www-aad-org.translate.goog/public/diseases/eczema/types/stasis-dermatitis?_x_tr_sl=en&_x_tr_tl=tr&_x_tr_hl=tr&_x_tr_pto=tc"
+                                    target="_blank"
+                                    rel="noopener">https://www-aad-org.translate.goog/public/diseases/eczema/types/stasis-dermatitis?_x_tr_sl=en&_x_tr_tl=tr&_x_tr_hl=tr&_x_tr_pto=tc</a>
+                            </li>
+                            <li><a href="https://artdehuile.com/aromaterapi-nedir-B5501066" target="_blank"
+                                    rel="noopener">https://artdehuile.com/aromaterapi-nedir-B5501066</a></li>
+                            <li><a href="https://www.healthline.com/health/severe-eczema/essential-oils" target="_blank"
+                                    rel="noopener">https://www.healthline.com/health/severe-eczema/essential-oils</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="container mb-5">
+        <div class="footer-card text-center">
+
+            <div class="row justify-content-center align-items-start">
+
+                <div class="col-md-4 mb-4 pt-1">
+                    <h5 class="mb-2">İletişim</h5>
+                    <a href="https://wa.me/9053XXXXXXXX" target="_blank" rel="noopener">
+                        <i class="bi bi-whatsapp me-1"></i> WhatsApp
+                    </a>
+                    <div class="mt-1">
+                        <a href="mailto:santheralab@gmail.com">
+                            <i class="bi bi-envelope me-1"></i> santheralab@gmail.com
+                        </a>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4 d-flex flex-column align-items-center pt-4">
+                    <a href="https://wa.me/9053XXXXXXXX" target="_blank" rel="noopener"
+                        class="btn btn-outline-dark px-4 py-2 rounded-pill mb-2">
+                        <i class="bi bi-chat-dots me-2"></i>
+                        Eczacımıza Danışın
+                    </a>
+
+                    <div class="small text-muted opacity-75">
+                        <i class="bi bi-geo-alt me-1"></i>
+                        Lefkoşa · Kuzey Kıbrıs
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4 pt-1">
+                    <h5 class="mb-2">Sosyal Medya</h5>
+                    <a href="https://www.instagram.com/eczserife" target="_blank" rel="noopener">
+                        <i class="bi bi-instagram me-1"></i> Instagram
+                    </a>
+                </div>
+
+            </div>
+
+            <p class="mt-4 mb-0">
+                &copy; 2026 SantheraLab · Tüm hakları saklıdır.
+            </p>
+
+        </div>
+    </footer>
+
+    <!-- Mobil Yukarı Çık -->
+    <button id="toTop" class="to-top" type="button" aria-label="Yukarı çık">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // ===== İçindekiler aktif bölüm =====
+        const tocLinks = Array.from(document.querySelectorAll('#toc a'))
+            .filter(a => a.getAttribute('href') && a.getAttribute('href').startsWith('#'));
+
+        const sections = tocLinks
+            .map(a => document.querySelector(a.getAttribute('href')))
+            .filter(Boolean);
+
+        const setActive = (id) => {
+            tocLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            const visible = entries
+                .filter(e => e.isIntersecting)
+                .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+
+            if (visible) setActive(visible.target.id);
+        }, {
+            root: null,
+            rootMargin: '-35% 0px -55% 0px',
+            threshold: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6]
+        });
+
+        sections.forEach(sec => observer.observe(sec));
+        if (sections[0]) setActive(sections[0].id);
+
+        // ===== Arama: TOC filtre + içerik highlight + ileri/geri =====
+        const searchBox = document.getElementById('searchBox');
+        const clearBtn = document.getElementById('clearSearch');
+        const meta = document.getElementById('searchMeta');
+        const content = document.getElementById('content');
+
+        const searchNav = document.getElementById('searchNav');
+        const prevHitBtn = document.getElementById('prevHit');
+        const nextHitBtn = document.getElementById('nextHit');
+
+        let hits = [];
+        let currentHitIndex = -1;
+
+        function escapeRegExp(str) {
+            return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
+
+        function unwrapMarks(root) {
+            root.querySelectorAll('mark.search-hit').forEach(mark => {
+                const text = document.createTextNode(mark.textContent);
+                mark.replaceWith(text);
+            });
+            root.normalize();
+        }
+
+        function highlightText(root, query) {
+            if (!query) return 0;
+            const re = new RegExp(escapeRegExp(query), 'gi');
+            let count = 0;
+
+            const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+                acceptNode(node) {
+                    if (!node.nodeValue || !node.nodeValue.trim()) return NodeFilter.FILTER_REJECT;
+                    const parent = node.parentElement;
+                    if (!parent) return NodeFilter.FILTER_REJECT;
+                    if (parent.closest('script, style, mark')) return NodeFilter.FILTER_REJECT;
+                    return re.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+                }
+            });
+
+            const nodes = [];
+            while (walker.nextNode()) nodes.push(walker.currentNode);
+
+            nodes.forEach(textNode => {
+                const frag = document.createDocumentFragment();
+                const text = textNode.nodeValue;
+                let lastIndex = 0;
+
+                text.replace(re, (match, offset) => {
+                    if (offset > lastIndex) frag.appendChild(document.createTextNode(text.slice(lastIndex, offset)));
+                    const mark = document.createElement('mark');
+                    mark.className = 'search-hit';
+                    mark.textContent = match;
+                    frag.appendChild(mark);
+                    lastIndex = offset + match.length;
+                    count++;
+                    return match;
+                });
+
+                if (lastIndex < text.length) frag.appendChild(document.createTextNode(text.slice(lastIndex)));
+                textNode.replaceWith(frag);
+            });
+
+            return count;
+        }
+
+        function filterToc(query) {
+            const q = query.toLowerCase().trim();
+            let visibleCount = 0;
+
+            tocLinks.forEach(a => {
+                const show = !q || a.textContent.toLowerCase().includes(q);
+                a.style.display = show ? '' : 'none';
+                if (show) visibleCount++;
+            });
+
+            return visibleCount;
+        }
+
+        function collectHits() {
+            hits = Array.from(content.querySelectorAll('mark.search-hit'));
+            currentHitIndex = hits.length ? 0 : -1;
+        }
+
+        function setCurrentHit(index) {
+            if (!hits.length) return;
+
+            hits.forEach(m => m.classList.remove('current-hit'));
+
+            currentHitIndex = (index + hits.length) % hits.length;
+
+            const el = hits[currentHitIndex];
+            el.classList.add('current-hit');
+
+            const y = el.getBoundingClientRect().top + window.scrollY - 140;
+            window.scrollTo({ top: y, behavior: 'smooth' });
+
+            prevHitBtn.disabled = hits.length <= 1;
+            nextHitBtn.disabled = hits.length <= 1;
+        }
+
+        function updateNavUI() {
+            const q = searchBox.value.trim();
+            const has = q && hits.length;
+
+            searchNav.style.display = has ? 'flex' : 'none';
+            prevHitBtn.disabled = hits.length <= 1;
+            nextHitBtn.disabled = hits.length <= 1;
+        }
+
+        function updateSearch() {
+            const q = searchBox.value.trim();
+
+            clearBtn.style.display = q ? 'block' : 'none';
+
+            filterToc(q);
+
+            unwrapMarks(content);
+            const hitCount = q ? highlightText(content, q) : 0;
+
+            collectHits();
+            updateNavUI();
+
+            if (q) {
+                meta.style.display = 'block';
+                meta.textContent = `${hitCount} eşleşme `;
+                if (hits.length) setCurrentHit(0);
+            } else {
+                meta.style.display = 'none';
+                meta.textContent = '';
+            }
+        }
+
+        searchBox.addEventListener('input', updateSearch);
+
+        searchBox.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && hits.length) {
+                e.preventDefault();
+                setCurrentHit(currentHitIndex + (e.shiftKey ? -1 : 1));
+            }
+        });
+
+        clearBtn.addEventListener('click', () => {
+            searchBox.value = '';
+            updateSearch();
+            searchBox.focus();
+        });
+
+        prevHitBtn.addEventListener('click', () => {
+            if (hits.length) setCurrentHit(currentHitIndex - 1);
+        });
+
+        nextHitBtn.addEventListener('click', () => {
+            if (hits.length) setCurrentHit(currentHitIndex + 1);
+        });
+
+        // ===== Mobil "Yukarı çık" =====
+        const toTop = document.getElementById('toTop');
+
+        function toggleToTop() {
+            const isMobile = window.matchMedia('(max-width: 767.98px)').matches;
+            const show = isMobile && window.scrollY > 500;
+            toTop.style.display = show ? 'flex' : 'none';
+        }
+
+        window.addEventListener('scroll', toggleToTop, { passive: true });
+        window.addEventListener('resize', toggleToTop);
+        toggleToTop();
+
+        toTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+
+</html>
